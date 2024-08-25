@@ -103,3 +103,24 @@ func UpdateUser(c *gin.Context) {
 		"user":    updatedUser,
 	})
 }
+
+func DeleteUser(c *gin.Context) {
+	userID := c.Param("id")
+
+	id, err := strconv.Atoi(userID)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid user ID"})
+		return
+	}
+
+	// Call the service to delete the user
+	err = services.DeleteUser(id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "User deleted successfully",
+	})
+}

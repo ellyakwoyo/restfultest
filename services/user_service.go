@@ -1,6 +1,7 @@
 package services
 
 import (
+	"errors"
 	"restfultest/database"
 	"restfultest/models"
 	"time"
@@ -73,6 +74,29 @@ func UpdateUser(user *models.User) error {
 	_, err := database.DB.Exec(query, user.FirstName, user.LastName, user.Email, user.Gender, user.IpAddress, user.Password, currentTime, user.ID)
 	if err != nil {
 		return err
+	}
+
+	return nil
+}
+
+func DeleteUser(id int) error {
+
+	queryCheck := "SELECT COUNT(*) FROM users WHERE id = ?"
+	var count int
+	err := database.DB.QueryRow(queryCheck, id).Scan(&count)
+	if err != nil {
+		return errors.New("Fsiled to ckeck if user exists")
+	}
+
+	if count == 0 {
+		return errors.New("User not found")
+	}
+
+	// Step 2: Delete the user
+	queryDelete := "DELETE FROM users WHERE id = ?"
+	_, err = database.DB.Exec(queryDelete, id)
+	if err != nil {
+		return errors.New("Failed to delete user")
 	}
 
 	return nil
