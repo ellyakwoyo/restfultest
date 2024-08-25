@@ -5,26 +5,26 @@ import (
 	"restfultest/models"
 )
 
-//func GetAllPosts() ([]models.Post, error) {
-//	query := "SELECT id, title, content FROM posts"
-//	rows, err := database.DB.Query(query)
-//	if err != nil {
-//		return nil, err
-//	}
-//	defer rows.Close()
-//
-//	var posts []models.Post
-//	for rows.Next() {
-//		var post models.Post
-//		err := rows.Scan(&post.ID, &post.Title, &post.Content)
-//		if err != nil {
-//			return nil, err
-//		}
-//		posts = append(posts, post)
-//	}
-//
-//	return posts, nil
-//}
+func GetAllUsers() ([]models.User, error) {
+	query := "SELECT id, first_name, last_name, email, gender, ip_address FROM users"
+	rows, err := database.DB.Query(query)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var users []models.User
+	for rows.Next() {
+		var user models.User
+		err := rows.Scan(&user.ID, &user.FirstName, &user.LastName, &user.Email, &user.Gender, &user.IpAddress)
+		if err != nil {
+			return nil, err
+		}
+		users = append(users, user)
+	}
+
+	return users, nil
+}
 
 func CreateUser(user *models.User) error {
 	query := "INSERT INTO users (first_name, last_name, email, gender, ip_address, password) VALUES (?, ?, ?, ?, ?, ?)"

@@ -7,15 +7,15 @@ import (
 	"restfultest/services"
 )
 
-//func GetAllPosts(c *gin.Context) {
-//	posts, err := services.GetAllPosts()
-//	if err != nil {
-//		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-//		return
-//	}
-//
-//	c.JSON(http.StatusOK, posts)
-//}
+func GetAllUsers(c *gin.Context) {
+	users, err := services.GetAllUsers()
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, users)
+}
 
 func CreateUser(c *gin.Context) {
 	var user models.User

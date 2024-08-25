@@ -9,6 +9,6 @@ func SetupRoutes(r *gin.Engine) {
 	usersRoutes := r.Group("/users")
 	{
 		usersRoutes.POST("/", controllers.CreateUser)
-		//postRoutes.GET("/", controllers.GetAllPosts)
+		usersRoutes.GET("/", controllers.GetAllUsers)
 	}
 }
