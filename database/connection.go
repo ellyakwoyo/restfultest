@@ -12,9 +12,14 @@ import (
 var DB *sql.DB
 
 func ConnectDB() {
-	// Construct the DSN (Data Source Name)
-	dsn := fmt.Sprintf(os.Getenv("DB_HOST"), os.Getenv("DB_USER"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_NAME"))
+	dbUser := os.Getenv("DB_USER")
+	dbPassword := os.Getenv("DB_PASSWORD")
+	dbHost := os.Getenv("DB_HOST")
+	dbPort := os.Getenv("DB_PORT")
+	dbName := os.Getenv("DB_NAME")
 
+	// Constructing the DSN
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPassword, dbHost, dbPort, dbName)
 	var err error
 	DB, err = sql.Open("mysql", dsn)
 	if err != nil {
@@ -27,5 +32,4 @@ func ConnectDB() {
 		log.Fatal("Failed to ping database:", err)
 	}
 
-	fmt.Println("Database connection established")
 }

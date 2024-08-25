@@ -6,9 +6,9 @@ import (
 )
 
 func SetupRoutes(r *gin.Engine) {
-	postRoutes := r.Group("/posts")
+	usersRoutes := r.Group("/users")
 	{
-		postRoutes.POST("/", controllers.CreatePost)
-		postRoutes.GET("/", controllers.GetAllPosts)
+		usersRoutes.POST("/", controllers.CreateUser)
+		//postRoutes.GET("/", controllers.GetAllPosts)
 	}
 }

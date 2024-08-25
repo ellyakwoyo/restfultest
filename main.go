@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"restfultest/config"
+	"restfultest/database"
 	"restfultest/routes"
 )
 
@@ -12,6 +13,7 @@ import (
 func main() {
 	config.LoadConfig()
 
+	database.ConnectDB()
 	// Initialize Gin router
 	r := gin.Default()
 
@@ -20,7 +22,6 @@ func main() {
 
 	// Start the server
 	r.Run(":8080")
-
 }
 
 //TIP See GoLand help at <a href="https://www.jetbrains.com/help/go/">jetbrains.com/help/go/</a>.
